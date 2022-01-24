@@ -1,0 +1,84 @@
+<html>
+
+    <head>
+        <meta charset="utf-8">
+      
+        <!-- Dołączenie biblioteki stylów CSS  -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+      
+        <!-- Dołączenie wymaganych skryptów do poprawnego działania biblioteki  -->
+      
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+          crossorigin="anonymous"></script>
+      
+          <script>
+            function validate()
+            {
+              var title = document.getElementById("title").value;
+              var description = document.getElementById("description").value;
+              var price = document.getElementById("price").value;
+
+              if(title=="" || description=="" || price=="")
+              {
+                alert("Żadne z pól nie może pozostać puste");
+                return;
+              }
+              if(!/^[-]?[0-9]*([.,]?([0-9]{0,2}[0]*))$/.test(price))
+              {
+                  alert("Niepoprawnie podana cena");
+                  return;
+              }
+              if(Number.parseFloat(price)<0)
+              {
+                  alert("Cena nie może być ujemna");
+                  return;
+              }
+
+              document.getElementById("form").submit();
+              
+            }              
+          </script>
+
+      </head>
+
+<body>
+    <nav class="nav nav-pills nav-justified">
+        <a class="nav-item nav-link" href=/>Strona Główna</a>
+        <a class="nav-item nav-link" href=/new_notice>Dodaj ogłoszenie</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link active dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Moje ogłoszenia
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href=/my_notices>Wystawione</a></li>
+            <li><a class="dropdown-item" href=/solded_notices>Sprzedane</a></li>
+          </ul>
+        </li>
+        <a class="nav-item nav-link" href=/my_shopping>Moje zakupy</a>
+        <a class="nav-item nav-link" href=/logout>Wyloguj się</a>
+      </nav>
+      <br>
+      <h1><center>Edytuj ogłoszenie<center></h1>
+      <br>
+    <form id="form" method=post action="/update/{{notice[0]}}">
+        <div class="form-group">
+            <label for="title">Tytuł:</label>
+            <input type="text" class="form-control" id="title" name=title value="{{notice[1]}}">
+          </div>          
+        <div class="form-group">
+            <label for="description">Opis:</label>
+            <input type="text" class="form-control" id="description" name=description value="{{notice[2]}}">
+          </div>          
+        <div class="form-group">
+            <label for="author">Cena:</label>
+            <input type="number" class="form-control" id="price" name=price value="{{notice[3]}}">
+          </div>
+          <p>
+          </p>
+    </form>
+    <button onClick="validate()" class="btn btn-primary">Edytuj ogłoszenie</button>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    
+        <!-- Dołączenie biblioteki stylów CSS  -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+      
+        <!-- Dołączenie wymaganych skryptów do poprawnego działania biblioteki  -->
+      
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+          crossorigin="anonymous"></script>
+
+          <script>
+            function validate()
+            {
+              var login = document.getElementById("login").value;
+              var password = document.getElementById("password").value;
+              var password2 = document.getElementById("password2").value;
+
+              if(login=="" || password=="" || password2=="")
+              {
+                alert("Żadne z pól nie może pozostać puste");
+                return;
+              }
+              if(password!=password2)
+              {
+                  alert("Hasła są od siebie różne");
+                  return;
+              }
+
+              document.getElementById("form").submit();
+              
+            }              
+          </script>
+</head>
+
+<body>
+    <nav class="nav nav-pills nav-justified">
+        <a class="nav-item nav-link" href=/>Strona Główna</a>
+        <a class="nav-item nav-link disabled"></a>
+        <a class="nav-item nav-link disabled"></a>
+        <a class="nav-item nav-link active" href=/register>Zarejestruj się</a>
+        <a class="nav-item nav-link" href=/login>Zaloguj się</a>
+    </nav>
+    <br>
+    <h1>
+        <center>Wpisz dane nowego użytkownika</center>
+    </h1>
+    <br>
+    <center>
+    <form id="form" method=post action="/add_user">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="login">Login:</label>
+                <input type="text" class="form-control" id="login" name=login placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Password">Hasło:</label>
+                <input type="password" class="form-control" id="password" name=password placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Password">Potwierdź hasło:</label>
+                <input type="password" class="form-control" id="password2" name=password placeholder="">
+            </div>
+        </div>
+          <p>
+          </p>
+    </form>    
+    <button onClick="validate()" class="btn btn-primary">Zarejestruj</button>
+</center>
+</body>
+
+</html>

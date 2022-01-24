@@ -1,0 +1,89 @@
+<html>
+
+    <head>
+        <meta charset="utf-8">
+      
+        <!-- Dołączenie biblioteki stylów CSS  -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+      
+        <!-- Dołączenie wymaganych skryptów do poprawnego działania biblioteki  -->
+      
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+          crossorigin="anonymous"></script>
+
+        <script>
+            function myFunction() {
+              // Declare variables
+              var input, filter, table, tr, td, i, txtValue;
+              input = document.getElementById("myInput");
+              filter = input.value.toUpperCase();
+              table = document.getElementById("myTable");
+              tr = table.getElementsByTagName("tr");
+            
+              // Loop through all table rows, and hide those who don't match the search query
+              for (i = 0; i < tr.length; i++) {
+                td0 = tr[i].getElementsByTagName("td")[0];
+                td1 = tr[i].getElementsByTagName("td")[1];
+                if (td0||td1) {
+                  txtValue0 = td0.textContent || td0.innerText;
+                  txtValue1 = td1.textContent || td1.innerText;
+                  if ((txtValue0.toUpperCase().indexOf(filter) > -1)||(txtValue1.toUpperCase().indexOf(filter) > -1)) {
+                    tr[i].style.display = "";
+                  } else {
+                    tr[i].style.display = "none";
+                  }
+                }
+              }
+            }
+            </script>  
+      
+      </head>
+
+<body>
+    <nav class="nav nav-pills nav-justified">
+        <a class="nav-item nav-link" href=/>Strona Główna</a>
+        <a class="nav-item nav-link" href=/new_notice>Dodaj ogłoszenie</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link active dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Moje ogłoszenia
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href=/my_notices>Wystawione</a></li>
+            <li><a class="dropdown-item" href=/solded_notices>Sprzedane</a></li>
+          </ul>
+        </li>
+        <a class="nav-item nav-link" href=/my_shopping>Moje zakupy</a>
+        <a class="nav-item nav-link" href=/logout>Wyloguj się</a>
+      </nav>
+      <br>
+      <h1><center>Wystawione ogłoszenia<center></h1>
+      <br>
+      <center><input class="form-control" type="text" id="myInput" onkeyup="myFunction()" placeholder="Wyszukaj"><center>
+      <table id="myTable" class="table">
+        <thead class="table-dark">
+          <th style="width:25%;">Tytuł</th>
+          <th style="width:55%;">Opis</th>          
+          <th style="width:10%;">Cena</th>                 
+          <th style="width:5%;"></th>                          
+          <th style="width:5%;"></th>
+        </thead>
+        <tbody>
+          {% for notice in notices %}
+           <tr>
+              <td>{{notice[1]}}</td>
+              <td>{{notice[2]}}</td>              
+              <td><script type="text/javascript">
+                var price = {{notice[3]}};
+                document.write(parseFloat(price).toFixed(2))
+              </script></td>           
+              <td><a class="btn btn-dark" href='/edit/{{notice[0]}}' role="button">Edytuj</a></td>
+              <td><a class="btn btn-dark" href='/delete/{{notice[0]}}' role="button">Usuń</a></td> 
+           </tr>
+        {% endfor %}
+        <tbody>
+      </table> 
+</body>
+
+</html>
